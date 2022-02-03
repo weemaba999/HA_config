@@ -1,0 +1,363 @@
+
+#-
+#                   __ _                       _   _
+#   ___ ___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __
+#  / __/ _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \
+# | (_| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | |
+#  \___\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
+#                        |___/
+#
+
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+discovery:
+
+stream:
+
+
+variable:
+    last_motion:
+        value: 'Unknown'
+        restore: true
+        attributes:
+            icon: mdi:map-marker
+            name: "Last Motion"
+
+logger:
+  default: warning
+  logs:
+    custom_components.powercalc: debug
+
+homeassistant:
+  customize: !include customize.yaml
+  # Load packages
+  packages: !include_dir_named integrations/
+  allowlist_external_dirs:
+    - /config
+  
+
+prometheus:
+  namespace: hass
+
+recorder:
+  
+  db_url: !secret mariadb_url
+  purge_keep_days: 2
+  
+
+
+powercalc:
+  scan_interval: 00:01:00 #Each minute
+  power_sensor_naming: "{} Powersensor"
+  create_utility_meters: true
+  enable_autodiscovery: false
+  
+  
+history:
+
+influxdb:
+  api_version: 2
+  ssl: false
+  host: !secret influxdb_host
+  port: 8086
+  token: !secret influxdb_token
+  organization: HomeBJ
+  bucket: Hassio
+  include:
+    entity_globs:
+      - binary_sensor.*
+      - sensor.energy_*
+      - sensor.uptime_*
+      - lock.*
+      - sensor.*
+      - input_number.*
+      - mediaplayer.*
+      - sensor.gas_*
+      - switch.*
+      - sensor.mercedes_*
+      - sensor.power_*
+      - sensor.solaredge_*
+      - sensor.wasdroger_*
+      - sensor.wasmachine_*
+      - sensor.cv_*
+      - sensor.tv_*
+      - cv_*
+      
+  exclude:
+    entity_globs:
+      - scene.*
+      - light.*
+      - person.*
+      - sensor.rx_*
+      - sensor.pollen_*
+      - group.*
+      - sensor.hue_
+      - weather.*
+      - automation.*
+      - device_tracker.*
+      - sensor.neerslag_*
+      - sensor.openweathermap_
+      - sensor.aarlo_
+      - sensor.sonos_*
+  
+# Text to speech
+tts:
+  - platform: google_translate
+    language: 'nl'
+  - platform: google_translate
+    language: 'en'
+
+
+aarlo:
+  username: !secret aarlo_username
+  password: !secret aarlo_pwd
+  refresh_devices_every: 2
+  stream_timeout: 120
+  reconnect_every: 90
+  tfa_source: imap
+  tfa_type: email
+  tfa_host: imap.gmail.com
+  tfa_username: !secret aarlo_tfa_username
+  tfa_password: !secret aarlo_tfa_password
+
+camera:
+  - platform: aarlo
+
+alarm_control_panel:
+  - platform: manual
+    name: HomeBJ Alarm
+    code: !secret alarm_code
+    arming_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      arming_time: 0
+      delay_time: 0
+
+slide:
+  username: !secret slide_username
+  password: !secret slide_password
+
+frontend:
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+  themes: !include_dir_merge_named custom_components/dwains_dashboard/lovelace/themesfiles/
+
+lovelace:
+  mode: yaml
+  resources: !include dwains-dashboard/resources/custom_resources.yaml
+
+sun:
+utility_meter:
+
+    energy_offpeak_hourly:
+        source: sensor.power_high
+        cycle: hourly
+    energy_peak_hourly:
+        source: sensor.power_low
+        cycle: hourly
+    gas_hourly:
+        source: sensor.gas_usage
+        cycle: hourly
+        
+    
+    energy_offpeak_daily:
+        source: sensor.power_high
+        cycle: daily
+    energy_peak_daily:
+        source: sensor.power_low
+        cycle: daily
+        
+    energy_import_t2_daily:
+        source: sensor.power_low
+        cycle: daily
+        
+    energy_import_t1_daily:
+        source: sensor.power_high
+        cycle: daily
+        
+    energy_export_t2_daily:
+        source: sensor.power_delivery_low
+        cycle: daily
+        
+    energy_export_t1_daily:
+        source: sensor.power_delivery_high
+        cycle: daily
+        
+    gas_daily:
+        source: sensor.gas_usage
+        cycle: daily
+        
+    pv_daily:
+        source: sensor.solaredge_lifetime_energy
+        cycle: daily
+        
+    wasdroger_energy_daily:
+        source: sensor.power_6
+        cycle: daily
+        
+    wasmachine_energy_daily:
+        source: sensor.power_4
+        cycle: daily
+    
+    cv_energy_daily:
+        source: sensor.power_22
+        cycle: daily
+    
+    sauna_energy_daily:
+        source: sensor.power_24
+        cycle: daily
+
+    tv_energy_daily:
+        source: sensor.power_26
+        cycle: daily
+        
+        # Weekly sensors
+    energy_offpeak_weekly:
+        source: sensor.power_high
+        cycle: weekly
+    energy_peak_weekly:
+        source: sensor.power_low
+        cycle: weekly
+    gas_weekly:
+        source: sensor.gas_usage
+        cycle: weekly
+    
+    wasdroger_energy_weekly:
+        source: sensor.power_6
+        cycle: weekly
+        
+    wasmachine_energy_weekly:
+        source: sensor.power_4
+        cycle: weekly
+        
+        #  water_weekly:
+        #    source: sensor.water_meter_usage_in_m3
+        #    cycle: weekly
+       
+    cv_energy_weekly:
+        source: sensor.power_22
+        cycle: weekly
+        
+    sauna_energy_weekly:
+        source: sensor.power_24
+        cycle: weekly
+       
+    tv_energy_weekly:
+        source: sensor.power_26
+        cycle: weekly
+    pv_weekly:
+        source: sensor.solaredge_lifetime_energy
+        cycle: weekly
+        
+        # Monthly sensors
+        # energy_peak_monthly:
+        #   source: sensor.power_low
+        #   cycle: monthly
+        
+        # energy_offpeak_monthly:
+        #   source: sensor.power_high
+        #   cycle: monthly
+        
+    energy_import_t2_monthly:
+        source: sensor.power_low
+        cycle: monthly
+        
+    energy_import_t1_monthly:
+        source: sensor.power_high
+        cycle: monthly
+        
+    energy_export_t2_monthly:
+        source: sensor.power_delivery_low
+        cycle: monthly
+        
+    energy_export_t1_monthly:
+        source: sensor.power_delivery_high
+        cycle: monthly
+        
+    gas_monthly:
+        source: sensor.gas_usage
+        cycle: monthly
+
+    wasdroger_energy_monthly:
+        source: sensor.power_6
+        cycle: monthly
+        
+    wasmachine_energy_monthly:
+        source: sensor.power_4
+        cycle: monthly
+                
+    cv_energy_monthly:
+        source: sensor.power_22
+        cycle: monthly
+    
+    sauna_energy_monthly:
+        source: sensor.power_24
+        cycle: monthly
+        
+    tv_energy_monthly:
+        source: sensor.power_26
+        cycle: monthly
+    
+    pv_monthly:
+        source: sensor.solaredge_lifetime_energy
+        cycle: monthly
+        
+        # Yearly sensors
+    energy_offpeak_yearly:
+        source: sensor.power_high
+        cycle: yearly
+    energy_peak_yearly:
+        source: sensor.power_low
+        cycle: yearly
+    gas_yearly:
+        source: sensor.gas_usage
+        cycle: yearly
+    cv_energy_yearly:
+        source: sensor.power_22
+        cycle: yearly
+        
+    sauna_energy_yearly:
+        source: sensor.power_24
+        cycle: yearly
+        
+    tv_energy_yearly:
+        source: sensor.power_26
+        cycle: yearly
+        
+    pv_yearly:
+        source: sensor.solaredge_lifetime_energy
+        cycle: yearly
+    
+
+
+
+
+input_text:
+  teams_status:
+    name: Microsoft Teams status
+    icon: mdi:microsoft-teams
+  teams_activity:
+    name: Microsoft Teams activity
+    icon: mdi:phone-off
+
+
+
+#Inputs
+sensor: !include_dir_merge_list includes/sensors/
+input_number: !include includes/input_numbers.yaml
+input_boolean: !include includes/input_booleans.yaml
+
+automation: !include_dir_merge_list includes/automation/
+#utility_meter: !include includes/utility_meter.yaml
+
+binary_sensor: !include_dir_merge_list includes/binary_sensors/
+switch: !include_dir_merge_list includes/switches/
+group: !include groups.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+person: !include includes/person.yaml

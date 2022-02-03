@@ -1,0 +1,107 @@
+living_lights:
+  name: "Woonkamer verlichting"
+  entities:
+    - light.hue_lightstrip_kast
+    - light.hue_lightstrip_bar
+
+hal_lights:
+  name: "Hal verlichting"
+  entities:
+    - light.hue_ambiance_lamp_1_gang
+    - light.hue_ambiance_lamp_2_gang
+
+# overkapping_lights:
+#   name: "Overkapping verlichting"
+#   entities:
+#     - light.hue_color_spot_1_overkapping
+#     - light.hue_color_spot_2_overkapping
+#     - light.hue_color_spot_3_overkapping
+#     - light.hue_color_spot_4_overkapping
+#     - light.hue_color_spot_5_overkapping
+#     - light.hue_color_spot_6_overkapping
+#     - light.hue_color_lamp_1_overkapping
+
+overkapping_lights:
+  name: "Overkapping verlichting"
+  entities:
+    - group.overkapping_cluster_1
+    - group.overkapping_cluster_2
+    - group.overkapping_cluster_3
+    - light.hue_color_lamp_1_overkapping
+
+overkapping_cluster_1:
+  name: "Overkapping Cluster 1"
+  entities:
+    - light.hue_color_spot_1_overkapping
+    - light.hue_color_spot_2_overkapping
+    - light.hue_color_lamp_1_overkapping
+    
+overkapping_cluster_2:
+  name: "Overkapping Cluster 2"
+  entities:
+    - light.hue_color_spot_3_overkapping
+    - light.hue_color_spot_4_overkapping
+
+overkapping_cluster_3:
+  name: "Overkapping Cluster 3"
+  entities:
+    - light.hue_color_spot_5_overkapping
+    - light.hue_color_spot_6_overkapping
+
+master_lights:
+  name: "Master verlichting"
+  entities:
+    - light.hue_go_master
+    - light.hue_go_master_2
+    
+keuken_lights:
+  name: "Keuken verlichting"
+  entities:
+    - light.dimmable_light_6
+    - light.dimmable_light_7
+
+bedroom_players:
+  name: "Nest Hubs Slaapkamer"
+  entities:
+    - media_player.nest_hub_bart
+    - media_player.nest_hub_jessie
+
+living_covers:
+  name: "Woonkamer gordijnen"
+  entities:
+    - cover.big_window_left
+    - cover.big_window_right
+    
+intercom:
+  name: 'Intercom'
+  entities:
+      - input_text.message
+      - input_select.googlehome
+      - input_number.intercom_volume
+      - script.intercom_message
+
+broadcast:
+  name: 'Broadcast'
+  entities:
+      - media_player.lounge
+      - media_player.livingroom
+      - media_player.keuken
+      - media_player.badkamer
+
+nachtmodus_lights:
+  name: 'Nachtmodus verlichting'
+  entities: 
+    - light.hue_ambiance_lamp_1_gang
+    - light.hue_ambiance_lamp_2_gang
+    - light.hue_lightstrip_kast
+    - light.hue_lightstrip_bar
+    - light.hue_go_master
+    - light.hue_go_master_2
+
+bedtime_lights:
+  name: 'Bedmodus verlichting'
+  entities:
+    - light.hue_ambiance_lamp_1_gang
+    - light.hue_ambiance_lamp_2_gang
+    - light.hue_lightstrip_kast
+    - light.hue_lightstrip_bar

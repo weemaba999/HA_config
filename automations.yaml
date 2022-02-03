@@ -1,0 +1,26 @@
+
+-  alias: TV aan boolean
+   description: ''
+   trigger:
+   - platform: numeric_state
+     entity_id: sensor.power_26
+     above: '100'
+   condition: []
+   action:
+   - service: input_boolean.turn_on
+     target:
+       entity_id: input_boolean.tv_status
+   mode: single
+
+-  alias: TV uit boolean
+   description: ''
+   trigger:
+   - platform: numeric_state
+     entity_id: sensor.power_26
+     below: '70'
+   condition: []
+   action:
+   - service: input_boolean.turn_off
+     target:
+       entity_id: input_boolean.tv_status
+   mode: single

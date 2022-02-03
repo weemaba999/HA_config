@@ -1,0 +1,273 @@
+light.hue_lightstrip_bar:
+  friendly_name: Bar
+  icon: mdi:led-strip-variant
+light.hue_lightstrip_kast:
+  friendly_name: Boekenkast
+  icon: mdi:led-strip-variant
+light.rgb_tradfri:
+  friendly_name: WC
+  icon: mdi:lightbulb-variant-outline
+light.hue_go_master:
+  friendly_name: Master Bart
+  icon: mdi:wall-sconce-round-variant
+light.hue_go_master_2:
+  friendly_name: Master Jessie
+  icon: mdi:wall-sconce-round-variant
+light.hue_color_spot_1_overkapping:
+  friendly_name: Overkapping S1
+  icon: mdi:lightbulb-spot
+light.hue_color_spot_2_overkapping:
+  friendly_name: Overkapping S2
+  icon: mdi:lightbulb-spot
+light.hue_color_spot_3_overkapping:
+  friendly_name: Overkapping S3
+  icon: mdi:lightbulb-spot
+light.hue_color_spot_4_overkapping:
+  friendly_name: Overkapping S4
+  icon: mdi:lightbulb-spot
+light.hue_color_spot_5_overkapping:
+  friendly_name: Overkapping S5
+  icon: mdi:lightbulb-spot
+light.hue_color_spot_6_overkapping:
+  friendly_name: Overkapping S6
+  icon: mdi:lightbulb-spot
+light.hue_color_lamp_1_overkapping:
+  friendly_name: Overkapping Lamp
+  icon: mdi:globe-light
+light.hue_white_lamp_1_berging:
+  friendly_name: Berging
+  icon: mdi:lightbulb-variant-outline
+light.hue_ambiance_lamp_1_gang:
+  friendly_name: Hal Lamp 1
+  icon: mdi:lightbulb-variant-outline
+light.hue_ambiance_lamp_2_gang:
+  friendly_name: Hal Lamp 2
+  icon: mdi:lightbulb-variant-outline
+light.dimmable_light_6:
+  friendly_name: Keuken S1
+  icon: mdi:lightbulb-spot
+light.dimmable_light_7:
+  friendly_name: Keuken S2
+  icon: mdi:lightbulb-spot
+
+group.overkapping_lights:
+  friendly_name: Overkapping
+  icon: mdi:lightbulb-group-outline
+group.living_lights:
+  friendly_name: Woonkamer Sfeer
+  icon: mdi:led-strip-variant
+group.hal_lights:
+  friendly_name: Hal
+  icon: mdi:floor-lamp
+
+group.keuken_lights:
+  friendly_name: Keuken
+  icon: mdi:lightbulb-group-outline
+
+sensor.power_4:
+  friendly_name: Power Wasmachine
+
+sensor.power_6:
+  friendly_name: Power Droogkast
+
+sensor.power_22:
+  friendly_name: Power CV
+  
+sensor.power_24:
+  friendly_name: Power Sauna
+
+binary_sensor.zb_window_keuken:
+  friendly_name: Raam Badkamer
+  
+binary_sensor.openclose_10:
+  friendly_name: Raam Slaapkamer
+  
+
+sensor.hue_motion_achtertuin_temperature:
+  friendly_name: Temp Tuin
+  icon: mdi:thermometer
+  
+sensor.hue_motion_keuken_temperature:
+  friendly_name: Temp Keuken
+  icon: mdi:thermometer
+ 
+sensor.window_door_sensor_temperature:
+  friendly_name: Temp Mancave
+  
+sensor.hue_motion_sensor_1_temperature:
+  friendly_name: Temp Berging
+
+sensor.temperature_12:
+  friendly_name: Temp Badkamer
+
+sensor.lightlevel_19_temperature:
+  friendly_name: Temp Bureau
+
+sensor.openclose_11_temperature:
+  friendly_name: Temp Mancave
+ 
+sensor.humidity_13:
+  friendly_name: Vochtigheid Badkamer
+
+
+
+
+binary_sensor.presence_20:
+  friendly_name: Bureau
+
+binary_sensor.hue_motion_keuken_motion:
+  friendly_name: Keuken
+
+binary_sensor.hue_motion_sensor_2_motion:
+  friendly_name: Master
+  
+binary_sensor.presence_18:
+  friendly_name: Hal
+
+binary_sensor.presence_31:
+  friendly_name: Badkamer
+
+
+script.intercom_message:
+  action_name: 'Announce'
+  icon: mdi:text-to-speech
+
+input_number.intercom_volume:
+  templates:
+#    icon: >
+   
+    # icon_color: >
+    #       if (state === '0.0') return 'rgb(145,227,237)';
+    #       if (state <= '0.1') return 'rgb(105,212,231)';
+    #       if (state <= '0.2') return 'rgb(46,147,238)';
+    #       if (state <= '0.3') return 'rgb(0,220,16)';
+    #       if (state <= '0.4') return 'rgb(0,195,13)';
+    #       if (state <= '0.5') return 'rgb(250,255,0)';
+    #       if (state <= '0.6') return 'rgb(252,150,0)';
+    #       if (state <= '0.7') return 'rgb(218,53,0)';
+    #       if (state <= '0.8') return 'rgb(255,0,0)';
+    #       if (state <= '0.9') return 'rgb(154,0,0)';
+    #       if (state <= '1.0') return 'rgb(81,0,0)';
+          
+    icon_color: >
+          if (state === '0.0') return [145,227,237];
+          if (state <= '0.1') return [105,212,231];
+          if (state <= '0.2') return [46,147,238];
+          if (state <= '0.3') return [0,220,16];
+          if (state <= '0.4') return [0,195,13];
+          if (state <= '0.5') return [250,255,0];
+          if (state <= '0.6') return [252,150,0];
+          if (state <= '0.7') return [218,53,0];
+          if (state <= '0.8') return [255,0,0];
+          if (state <= '0.9') return [154,0,0];
+          if (state <= '1.0') return [81,0,0];
+          
+input_select.language:
+      templates:
+        entity_picture: >
+          return '/local/images/flags/'+ state +'.png';
+
+
+
+binary_sensor.window_door_sensor:
+  friendly_name: Deur Mancave
+
+binary_sensor.openclose_9:
+  friendly_name: Deur Sas
+
+sensor.openclose_9_temperature:
+  friendly_name: Temp Sas
+  
+sensor.lightlevel_17_temperature:
+  friendly_name: Temp Hal
+
+sensor.afvalwijzer_restafval_next:
+  entity_picture: /local/images/afval_rest_small.png
+sensor.afvalwijzer_plastic_next:
+  entity_picture: /local/images/afvalpmd_small_.png
+sensor.afvalwijzer_gft_next:
+  entity_picture: /local/images/afval_gft_small.png
+sensor.afvalwijzer_papier_next:
+  entity_picture: /local/images/afval_papier_small.png
+
+sensor.limburg_net_restafval:
+  entity_picture: /local/images/afval_rest_small.png
+  friendly_name: Restafval
+sensor.limburg_net_pmd:
+  entity_picture: /local/images/afval_pmd_small.png
+  friendly_name: PMD
+sensor.limburg_net_papier:
+  entity_picture: /local/images/afval_papier_small.png
+  friendly_name: Papier
+
+sensor.afvalwijzer_first_next_in_days:
+  friendly_name: Days to next pickup
+  templates:
+    icon: >
+      if (state == 'Geen') return 'mdi:calendar-question';
+      var items = ['1','2','3','4','5','6','7','8','9'];
+      if (items.includes(state))
+        return 'mdi:numeric-' + state + '-box-multiple-outline';
+      return 'mdi:numeric-9-plus-box-multiple-outline';
+
+sensor.afvalwijzer_today:
+  friendly_name: Afval vandaag
+  templates: &trash_picture
+    entity_picture: >
+      var items = ['papier','gft','pmd','restafval'];
+      if (items.includes(state))
+      return '/local/images/' + state + '.png';
+          return '/local/images/afval_geen_large.png';
+
+#previously
+#          if (state in ['papier','gft','plastic','restafval'])
+#          return '/local/afvalwijzer/' + state + '.png';
+#          return '/local/afvalwijzer/kliko_geen.png';
+
+binary_sensor.washing_machine:
+  templates:
+    hs_color: >
+      if (state === 'on') return [48,76,251];
+
+binary_sensor.drying_machine:
+  templates:
+    hs_color: >
+      if (state === 'on') return [48,76,251];
+
+sensor.afvalwijzer_tomorrow:
+  friendly_name: Afval morgen
+  templates: *trash_picture
+
+sensor.afvalwijzer_day_after_tomorrow:
+  friendly_name: Afval Dat
+  templates: *trash_picture
+
+############################ POP-UPs #####################
+sensor.my_door_lock_status:
+  dwains_dashboard_popup: 'dwains-dashboard/addons/house_information/Nuki Lock/page.yaml'
+
+sensor.my_car_lock_status:
+  dwains_dashboard_popup: 'dwains-dashboard/addons/pop_up/mercedes/page.yaml'
+  
+group.living_covers:
+  dwains_dashboard_popup: 'dwains-dashboard/addons/pop_up/cover/page.yaml'
+
+sensor.intercom_status:
+  dwains_dashboard_popup: 'dwains-dashboard/addons/pop_up/intercom/page.yaml'
+  
+sensor.my_mancave_close_status:
+  dwains_dashboard_popup: 'dwains-dashboard/addons/pop_up/doors/page.yaml'
+
+switch.smart_plug_5:
+  friendly_name: Sauna
+  icon: mdi:radiator
+  dwains_dashboard_popup: 'dwains-dashboard/addons/pop_up/sauna/page.yaml'
+  
+############################ POP-UPs #####################
+
+person.jessie:
+  entity_picture: "/local/images/persons/jessie.png"
+person.joos:
+  entity_picture: "/local/images/persons/joos.png"
+person.arne:
+  entity_picture: "/local/images/persons/arne.png"

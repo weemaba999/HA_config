@@ -1,0 +1,10 @@
+
+- cal_id: !secret google_calid
+  entities:
+  - device_id: !secret google_deviceid
+    ignore_availability: true
+    name: !secret google_name
+    track: true
+    max_results: 42
+
+
